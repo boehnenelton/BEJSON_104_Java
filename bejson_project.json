@@ -1,0 +1,120 @@
+{
+  "Format": "BEJSON",
+  "Format_Version": "104a",
+  "Format_Creator": "Elton Boehnen",
+  "Session_Id": "50dbcee9-4f01-4c0b-90f5-ccaf3cd4da0f",
+  "Project_Name": "libraries_104_java_core",
+  "Project_Modified_Date": "2026-11-24T00:16:36Z",
+  "Project_Description": "Pure-Java (Java 8, zero deps, Android-compatible) port of the BEJSON/MFDB Core family with Python-oracle parity harness.",
+  "Schema_Version": "1.7.0",
+  "Project_Version": "1.0.2",
+  "Package_Version": "102",
+  "Project_GUID": "GUID_PLACEHOLDER",
+  "Versioned_UUID": "20e17e1c-5b01-4de5-ba16-4432e212ae29",
+  "Is_Registered": false,
+  "Project_Type": "Standalone_Tool",
+  "Records_Type": [
+    "RootPackage"
+  ],
+  "Fields": [
+    {
+      "name": "Project_Name",
+      "type": "string"
+    },
+    {
+      "name": "Project_Version",
+      "type": "string"
+    },
+    {
+      "name": "Package_Version",
+      "type": "string"
+    },
+    {
+      "name": "Project_Root_Path",
+      "type": "string"
+    },
+    {
+      "name": "Project_GUID",
+      "type": "string"
+    },
+    {
+      "name": "Versioned_UUID",
+      "type": "string"
+    },
+    {
+      "name": "Session_Id",
+      "type": "string"
+    },
+    {
+      "name": "Author",
+      "type": "string"
+    },
+    {
+      "name": "Description",
+      "type": "string"
+    },
+    {
+      "name": "Project_Modified_Date",
+      "type": "string"
+    },
+    {
+      "name": "Package_Date",
+      "type": "string"
+    },
+    {
+      "name": "Remote_Repo_URL",
+      "type": "string"
+    },
+    {
+      "name": "Git_Branch",
+      "type": "string"
+    },
+    {
+      "name": "Git_Commit_Hash",
+      "type": "string"
+    },
+    {
+      "name": "Main_Executable",
+      "type": "string"
+    },
+    {
+      "name": "Runtime_Type",
+      "type": "string"
+    },
+    {
+      "name": "BEJSON_Lib_Version",
+      "type": "string"
+    },
+    {
+      "name": "Archive_Filename",
+      "type": "string"
+    },
+    {
+      "name": "Package_Checksum_SHA256",
+      "type": "string"
+    }
+  ],
+  "Values": [
+    [
+      "libraries_104_java_core",
+      "1.0.2",
+      "102",
+      "PATH_PLACEHOLDER",
+      "GUID_PLACEHOLDER",
+      "20e17e1c-5b01-4de5-ba16-4432e212ae29",
+      "50dbcee9-4f01-4c0b-90f5-ccaf3cd4da0f",
+      "Elton Boehnen",
+      "Pure-Java (Java 8, zero deps, Android-compatible) port of the BEJSON/MFDB Core family with Python-oracle parity harness.",
+      "2026-11-24T00:16:36Z",
+      "2026-11-24T00:16:36Z",
+      "https://github.com/boehnenelton/BEJSON_104_Java.git",
+      "main",
+      "",
+      "build.gradle",
+      "java",
+      "300",
+      "libraries_104_java_core-V1.0.2-PKG102.zip",
+      ""
+    ]
+  ]
+}

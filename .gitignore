@@ -1,0 +1,11 @@
+# Gradle build outputs
+.gradle/
+build/
+
+# Compiled Java class & archive files
+*.class
+*.jar
+
+# Logs and temporary files
+*.log
+.DS_Store

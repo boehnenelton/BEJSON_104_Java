@@ -1,0 +1,49 @@
+// File Name:       build.gradle
+// Relative Path:   build.gradle
+// Description:     java-library build (Java 8 level, zero dependencies). Android apps consume it as a module/jar:
+//                  implementation project(':bejson-core-java')  or  implementation files('libs/bejson-core-java-1.0.0.jar')
+//                  parityTests: ./gradlew parityTests -PlibPyCore=/path/to/libraries_104/Lib_PY/Core
+// VERSION:         1.0.0
+// Author:          Elton Boehnen · boehnenelton2024@gmail.com · boehnenelton2024.pages.dev · github.com/boehnenelton
+// RELATIONAL_ID:   9acf726b-9bb4-4a6d-92bc-f4f775184e47
+plugins {
+    id 'java-library'
+}
+
+group = 'com.boehnenelton.bejson'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xlint:all,-options,-serial'
+}
+
+// Parity drivers are plain mains (no JUnit); they compare against fixtures produced by dev/parity/parity_py_*.py.
+test {
+    filter {
+        failOnNoDiscoveredTests = false
+    }
+}
+
+tasks.register('parityTests') {
+    group = 'verification'
+    description = 'Runs the Python-oracle vs Java parity drivers (requires -PlibPyCore=<Lib_PY/Core dir>).'
+    dependsOn 'testClasses'
+    doLast {
+        def core = project.findProperty('libPyCore')
+        if (!core) throw new GradleException('Pass -PlibPyCore=<path to libraries_104/Lib_PY/Core>')
+        exec {
+            commandLine 'bash', "${projectDir}/dev/parity/run_parity.sh", core
+        }
+    }
+}
+

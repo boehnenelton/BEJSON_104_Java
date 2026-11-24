@@ -1,0 +1,7 @@
+// File Name:       settings.gradle
+// Relative Path:   settings.gradle
+// Description:     Gradle settings for the pure-Java BEJSON/MFDB Core port.
+// VERSION:         1.0.0
+// Author:          Elton Boehnen · boehnenelton2024@gmail.com · boehnenelton2024.pages.dev · github.com/boehnenelton
+// RELATIONAL_ID:   e5e39e73-234d-4fff-bcdb-0f7e10dc249d
+rootProject.name = 'bejson-core-java'
