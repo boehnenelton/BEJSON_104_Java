@@ -28,12 +28,6 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 // Parity drivers are plain mains (no JUnit); they compare against fixtures produced by dev/parity/parity_py_*.py.
-test {
-    filter {
-        failOnNoDiscoveredTests = false
-    }
-}
-
 tasks.register('parityTests') {
     group = 'verification'
     description = 'Runs the Python-oracle vs Java parity drivers (requires -PlibPyCore=<Lib_PY/Core dir>).'
@@ -46,4 +40,3 @@ tasks.register('parityTests') {
         }
     }
 }
-

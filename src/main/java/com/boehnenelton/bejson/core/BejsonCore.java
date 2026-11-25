@@ -27,6 +27,8 @@ public final class BejsonCore {
     private BejsonCore() { }
 
     public static final String VERSION = "2.0.10";
+    /** BEJSON Release_Version this core family is frozen at. */
+    public static final int RELEASE_VERSION = 300;
     private static final Logger LOG = Logger.getLogger("lib_bejson_Core_bejson_core");
 
     /** In-memory field-map cache key; never read back from disk or from a string. */
@@ -286,25 +288,18 @@ public final class BejsonCore {
         if (idx == -1) return;
         List<Object> values = Json.asList(doc.get("Values"));
         final Comparator<Object> cmp = PyOps.comparator();
+        final boolean rev = reverse;
+        // One stable sort; swapping the operands (not negating) matches Python reverse=True, which keeps equal rows in original order.
         Collections.sort(values, new Comparator<Object>() {
             @Override
             public int compare(Object a, Object b) {
                 Object x = Json.asList(a).get(idx);
                 Object y = Json.asList(b).get(idx);
-                return cmp.compare(x == null ? "" : x, y == null ? "" : y);
+                if (x == null) x = "";
+                if (y == null) y = "";
+                return rev ? cmp.compare(y, x) : cmp.compare(x, y);
             }
         });
-        if (reverse) {
-            // Python reverse=True keeps equal elements in original order: re-sort stably with inverted comparator.
-            Collections.sort(values, new Comparator<Object>() {
-                @Override
-                public int compare(Object a, Object b) {
-                    Object x = Json.asList(a).get(idx);
-                    Object y = Json.asList(b).get(idx);
-                    return -cmp.compare(x == null ? "" : x, y == null ? "" : y);
-                }
-            });
-        }
     }
 
     public static void sortByField(Map<String, Object> doc, String fieldName) { sortByField(doc, fieldName, false); }

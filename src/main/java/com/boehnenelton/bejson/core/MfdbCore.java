@@ -172,6 +172,16 @@ public final class MfdbCore {
 
     /** Writes a corrected record_count for ONE entity into the manifest row. */
     static void updateManifestRecordCount(String manifestPath, String entityName, Object count) {
+        // Serialize the manifest read-modify-write across entities (entity locks alone do not cover it). Lock order: entity -> manifest.
+        ResilientPidLock mlock = ResilientPidLock.enter(manifestPath, 10);
+        try {
+            updateManifestRecordCountLocked(manifestPath, entityName, count);
+        } finally {
+            mlock.close();
+        }
+    }
+
+    private static void updateManifestRecordCountLocked(String manifestPath, String entityName, Object count) {
         Map<String, Object> doc = loadJsonMap(manifestPath);
         List<Object> fields = Json.asList(doc.get("Fields"));
         int rc = fieldNameIndex(fields, "record_count");

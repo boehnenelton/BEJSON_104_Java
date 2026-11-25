@@ -111,6 +111,8 @@ public final class BejsonParse {
         for (int i = 0; i < invalid.length(); i++) {
             projectName = projectName.replace(invalid.charAt(i), '_');
         }
+        // "." / ".." (or all-dots / blank) would resolve to the output dir or its parent
+        if (PyOps.strip(projectName, ". ").isEmpty()) projectName = "My_Project";
 
         List<Map<String, Object>> files = new ArrayList<Map<String, Object>>();
         for (Object rowObj : values) {
@@ -154,7 +156,7 @@ public final class BejsonParse {
         boolean overwrite = Json.truthy(cfg.get("overwrite_enabled"));
         String target;
         if (overwrite) {
-            target = PyFs.join(baseDir, proj);
+            target = BejsonPathGuard.safeJoin(baseDir, proj);
             String bak = PyFs.join(baseDir, proj + "_BACKUP");
             if (PyFs.exists(target)) {
                 if (PyFs.exists(bak)) PyFs.rmtree(bak);

@@ -149,6 +149,15 @@ public final class HardeningTests {
         String sm = BejsonPathGuard.resolveStoragePath("/storage/emulated/0/x");
         t.check("storage prefix mapped", !sm.startsWith("/storage/emulated/0") || BejsonEnv.getenv("BEJSON_STORAGE_ROOT") != null);
 
+        // 10. sortByField(reverse) is one stable sort: descending, equal keys keep original order
+        String sdoc = "{\"Format\":\"BEJSON\",\"Format_Version\":\"104\",\"Format_Creator\":\"x\",\"Records_Type\":[\"T\"],"
+            + "\"Fields\":[{\"name\":\"k\",\"type\":\"integer\"},{\"name\":\"id\",\"type\":\"string\"}],"
+            + "\"Values\":[[1,\"a\"],[2,\"b\"],[1,\"c\"],[2,\"d\"]]}";
+        Map<String, Object> sd = Json.asMap(Json.loads(sdoc));
+        BejsonCore.sortByField(sd, "k", true);
+        t.check("sort reverse stable", Json.dumps(sd.get("Values")).replaceAll("\\s", "").equals("[[2,\"b\"],[2,\"d\"],[1,\"a\"],[1,\"c\"]]"));
+        t.check("release version constant", BejsonCore.RELEASE_VERSION == 300);
+
         PyFs.rmtree(rp);
         t.finish();
     }
